@@ -1,0 +1,30 @@
+#!/usr/bin/env node
+
+const fs = require('fs-extra-promise')
+const path = require('path')
+const print = res=> {
+  console.log(JSON.stringify(res, null, 2))
+  return res
+}
+const xf = require('../lib/transformer')
+
+// don't need option parsing so far, skips additional deps
+if(process.argv.length != 4){
+  console.log("Usage: lidar DIR ISSUE [OUTDIR]\nExample: lidar docs/architecture 2016/09")
+  process.exit(1)
+}
+
+const writeHtml = outdir => data => {
+  const text = fs.readFileSync(path.resolve(__dirname, '../build/index.html')).toString()
+  const out = text.replace('var keep="swap me"', `window.data = ${JSON.stringify(data)};`)
+  fs.mkdirsSync(outdir)
+  return fs.writeFileAsync(`${outdir}/index.html`, out)
+}
+const copyBuild = outdir => () => {
+  return fs.copyAsync(path.resolve(__dirname, '../build/static'), `${outdir}/static`)
+}
+const outdir = process.argv[4] || 'out'
+xf(process.argv[2], process.argv[3])
+    .then(writeHtml(outdir))
+    .then(copyBuild(outdir))
+    .then(()=>console.log(`Wrote into: ${outdir}.\n\nYou can now install pushstate-server and view your content:\n> npm i -g pushstate-server\n> pushstate-server ${outdir}\n`))

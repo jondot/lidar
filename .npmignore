@@ -1,0 +1,24 @@
+# npm module will use
+# build/
+# bin/
+# lib/
+#
+# and 'build' is released periodically.
+
+
+# dependencies
+node_modules
+
+# testing
+coverage
+
+
+# misc
+.DS_Store
+npm-debug.log
+src/
+index.html
+out/
+scripts/
+config/
+media/
