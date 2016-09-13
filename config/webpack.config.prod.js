@@ -18,7 +18,7 @@ if (env['process.env.NODE_ENV'] !== '"production"') {
 // single-page apps that may serve index.html for nested URLs like /todos/42.
 // We can't use a relative path in HTML because we don't want to load something
 // like /todos/42/static/js/bundle.7289d.js. We have to know the root.
-var homepagePath = require(paths.appPackageJson).homepage;
+var homepagePath =  process.env.LIDAR_HOME || require(paths.appPackageJson).homepage;
 var publicPath = homepagePath ? url.parse(homepagePath).pathname : '/';
 if (!publicPath.endsWith('/')) {
   // If we don't do this, file assets will get incorrect paths.

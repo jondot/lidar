@@ -33,6 +33,7 @@
     "file-loader": "0.9.0",
     "filesize": "3.3.0",
     "fs-extra": "0.30.0",
+    "gh-pages": "^0.11.0",
     "gzip-size": "3.0.0",
     "html-loader": "0.4.3",
     "html-webpack-plugin": "2.22.0",
@@ -65,7 +66,8 @@
   "scripts": {
     "start": "node scripts/start.js",
     "build": "node scripts/build.js",
-    "test": "jest --watch --env=jsdom"
+    "test": "jest --watch --env=jsdom",
+    "pages": "LIDAR_HOME=https://jondot.github.io/lidar npm run build && gh-pages -d build; npm run build"
   },
   "eslintConfig": {
     "extends": "./config/eslint.js"

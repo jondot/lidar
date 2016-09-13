@@ -111,7 +111,7 @@ function build(previousSizeMap) {
     console.log();
 
     var openCommand = process.platform === 'win32' ? 'start' : 'open';
-    var homepagePath = require(paths.appPackageJson).homepage;
+    var homepagePath = process.env.LIDAR_HOME || require(paths.appPackageJson).homepage;
     var publicPath = config.output.publicPath;
     if (homepagePath && homepagePath.indexOf('.github.io/') !== -1) {
       // "homepage": "http://user.github.io/project"
