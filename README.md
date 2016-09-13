@@ -34,7 +34,9 @@ you'll publish a new radar issue to your readers.
 ## Format
 
 The material on the Radar, is formatted in a very convenient markdown format,
-and a simple directory layout:
+and a simple directory layout. You can use the [example](example/) provided
+here as a kickstart project.
+
 
 ```
 radar/
@@ -76,7 +78,7 @@ below it will be the description.
   right below the header, italics, for example: `_2016/09_`, corresponds to
   2016, September.
 
-* Items should be sorted / added alphabetically (on a Level-2 heading).
+* Items should (not a must) be sorted / added alphabetically (on a Level-2 heading).
 
 * The rest, is free form.
 
