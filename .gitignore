@@ -12,4 +12,3 @@ coverage
 npm-debug.log
 src/data.json
 out/
-media/
