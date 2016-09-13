@@ -1,6 +1,6 @@
 # Lidar
 
-A take on ThoughtWorks' Radar. You can use this tool and system to make your
+A take on [ThoughtWorks' Radar](https://www.thoughtworks.com/radar/techniques). You can use this tool and system to make your
 very own technological Radar. [You can see it live](https://jondot.github.io/lidar/) on this project's gh-pages.
 
 <h3 align="center">
