@@ -4,7 +4,7 @@ A take on ThoughtWorks' Radar. You can use this tool and system to make your
 very own technological Radar.
 
 <h3 align="center">
-  <img src="media/lidar.png" alt="Lidar" width="400px"/>
+  <img src="media/lidar.png" alt="Lidar" width="500px"/>
 </h3>
 
 ## Quick Start
