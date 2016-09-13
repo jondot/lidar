@@ -4,7 +4,7 @@ A take on ThoughtWorks' Radar. You can use this tool and system to make your
 very own technological Radar. [You can see it live](https://jondot.github.io/lidar/) on this project's gh-pages.
 
 <h3 align="center">
-  <img src="media/lidar.png" alt="Lidar" width="500px"/>
+  <img src="media/lidar.png" alt="Lidar" />
 </h3>
 
 ## Quick Start
