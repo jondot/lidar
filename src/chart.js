@@ -1,16 +1,9 @@
 import React, { Component } from 'react';
-import {VictoryContainer, VictoryLabel, VictoryScatter, VictoryChart, VictoryAxis} from 'victory'
-import './chart.css'
+import {VictoryLabel, VictoryScatter, VictoryChart, VictoryAxis} from 'victory'
 import R from 'ramda'
 
-// data will be a global.
-const tkey = Object.keys(data)[0]
-const topic = data[tkey]
 
 class Label extends Component {
-  constructor(props){
-    super(props)
-  }
   render(){
     return <VictoryLabel
               {...this.props}
@@ -51,77 +44,82 @@ const stageProps = {
 
 const stages = Object.keys(stageProps)
 
-const byStage = (d)=>topic.filter(i=>i.stage == d.stage)
-const datumIndex = (d)=>(byStage(d).findIndex(i=>i == d ) )
-const fill = d=>stageProps[stages[d.stage]].color
-const project = trig=> d=> Math.max(bias(d.progression||0) + (d.stage * trig((quad/byStage(d).length) * datumIndex(d))),0)
 
-class Chart extends Component {
-  constructor(props){
-    super(props)
-    this.state = {}
-  }
-  render() {
-    const selected = this.state.selected || {}
-    return (
-      <div className="app">
-        <div className="chart">
-          <h2 className="chart__title">{tkey}</h2>
-          <VictoryChart
-              domainPadding={{x: 0, y: 0}}
-          >
-            <VictoryAxis
-              dependentAxis
-              tickValues={R.range(0, stages.length)}
-              tickFormat={(x)=>stages[x]}
-            />
-            <VictoryAxis
-              tickValues={R.range(0, stages.length)}
-              tickFormat={(x) => stages[x]}
-            />
-          <VictoryScatter
-            style={{
-              data: {
-                fill,
-              },
-              labels:{
-                fontSize: 7
+module.exports = (data, opts)=>{
+  const tkey = Object.keys(data)[0]
+  const topic = data[tkey]
+  const byStage = (d)=>topic.filter(i=>i.stage === d.stage)
+  const datumIndex = (d)=>(byStage(d).findIndex(i=>i === d ) )
+  const fill = d=>stageProps[stages[d.stage]].color
+  const project = trig=> d=> Math.max(bias(d.progression||0) + (d.stage * trig((quad/byStage(d).length) * datumIndex(d))),0)
+
+  class Chart extends Component {
+    constructor(props){
+      super(props)
+      this.state = {}
+    }
+    render() {
+      const selected = this.state.selected || {}
+      return (
+        <div className="app">
+          <div className="chart">
+            <h2 style={{textAlign: 'center', textTransform: 'capitalize'}}>{tkey}</h2>
+            <VictoryChart
+                domainPadding={{x: 0, y: 0}}
+            >
+              <VictoryAxis
+                dependentAxis
+                tickValues={R.range(0, stages.length)}
+                tickFormat={(x)=>stages[x]}
+              />
+              <VictoryAxis
+                tickValues={R.range(0, stages.length)}
+                tickFormat={(x) => stages[x]}
+              />
+            <VictoryScatter
+              style={{
+                data: {
+                  fill,
+                },
+                labels:{
+                  fontSize: 7
+                }
+              }}
+              data={topic}
+              x={project(Math.cos)}
+              y={project(Math.sin)}
+              labelComponent={
+                <Label/>
               }
-            }}
-            data={topic}
-            x={project(Math.cos)}
-            y={project(Math.sin)}
-            labelComponent={
-              <Label/>
-            }
-            events={[{
-              target: "data",
-              eventHandlers: {
-                onMouseOver: mutate((props) => {
-                  return Object.assign({}, props, {size:10})
-                }),
-                onMouseOut: mutate((props) => {
-                  return { style:
-                    Object.assign({}, props.style)
-                  };
-                }),
-                onClick: mutate((props) => {
-                  this.setState({selected: props.datum})
-                })
-              }
-            }]}
-          >
-          </VictoryScatter>
-        </VictoryChart>
-      </div>
-      { this.state.selected && <div>
-        <h3>{selected.label} <div className={`stage stage-${stages[selected.stage]}`}>{stages[selected.stage]}</div></h3>
-          <div dangerouslySetInnerHTML={{__html: this.state.selected.desc || ''}} />
+              events={[{
+                target: "data",
+                eventHandlers: {
+                  onMouseOver: mutate((props) => {
+                    return Object.assign({}, props, {size:10})
+                  }),
+                  onMouseOut: mutate((props) => {
+                    return { style:
+                      Object.assign({}, props.style)
+                    };
+                  }),
+                  onClick: mutate((props) => {
+                    this.setState({selected: props.datum})
+                  })
+                }
+              }]}
+            >
+            </VictoryScatter>
+          </VictoryChart>
         </div>
-      }
-      </div>
-    );
+        { this.state.selected && <div>
+          <h3>{selected.label} <div className={`stage stage-${stages[selected.stage]}`}>{stages[selected.stage]}</div></h3>
+            <div dangerouslySetInnerHTML={{__html: this.state.selected.desc || ''}} />
+          </div>
+        }
+        </div>
+      );
+    }
   }
+  return Chart
 }
 
-export default Chart;

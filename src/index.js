@@ -1,8 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Chart from './chart';
+import makeChart from './chart';
 
+// data would be available globally
+//
 ReactDOM.render(
-  <Chart />,
+  React.createElement(makeChart(data)),
   document.getElementById('root')
 );

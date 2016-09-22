@@ -9,7 +9,7 @@ const print = res=> {
 const xf = require('../lib/transformer')
 
 // don't need option parsing so far, skips additional deps
-if(process.argv.length != 4){
+if(process.argv.length < 4){
   console.log("Usage: lidar DIR ISSUE [OUTDIR]\nExample: lidar docs/architecture 2016/09")
   process.exit(1)
 }

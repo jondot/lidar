@@ -8,13 +8,6 @@ body {
   padding:2em;
 }
 
-.chart {
-}
-  .chart__title{
-    text-align: center;
-    text-transform: capitalize;
-  }
-
 .stage{
   border-radius: 4px;
   padding: 0.5em 1em;

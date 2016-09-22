@@ -17,7 +17,7 @@ coverage
 .DS_Store
 npm-debug.log
 src/
-index.html
+/index.html
 out/
 scripts/
 config/
